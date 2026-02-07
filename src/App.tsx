@@ -1,83 +1,48 @@
-import { useState } from "react";
+import { useState } from 'react'
+import { motion } from 'framer-motion'
 
-import Button from "./components/Button";
-import Icon from "./components/Icon";
-import Pin from "./components/Pin";
-import Typewriter from "./components/Typewriter";
-
-import viteLogo from "/vite.svg";
-
-function App() {
-  const [count, setCount] = useState(0);
-
-  const words = [
-    { text: "Vite", className: "text-[#a95eff]" },
-    { text: " + " },
-    { text: "React", className: "text-[#61dafb]" },
-    { text: " + " },
-    { text: "Tailwindcss", className: "text-[#0ea5e9]" },
-    { text: " + " },
-    { text: "Framer Motion", className: "text-[#ff57c8]" },
-  ];
+export default function App() {
+  const [accepted, setAccepted] = useState(false)
 
   return (
-    <div className="text-center">
-      <header className="flex min-h-screen flex-col items-center justify-center gap-2 bg-[#282c34] pb-8 text-white">
-        <Pin text="React 👍">
-          <Icon />
-        </Pin>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 to-red-200">
+      <div className="bg-white rounded-2xl shadow-xl w-[350px] p-6 text-center">
+        <motion.h1
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          className="text-2xl font-bold text-pink-700"
+        >
+          Will you be my Valentine?
+        </motion.h1>
 
-        <Typewriter words={words} />
-        <p className="my-10">
-          <Button onTap={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </Button>
-        </p>
-        <p>
-          Edit <code className="text-[#8d96a7]">App.tsx</code> and save to test
-          HMR updates.
-        </p>
-        <p className="mt-3 flex gap-3 text-center text-[#8d96a7]">
-          <a
-            className="text-[#61dafb] transition-all hover:text-blue-500"
-            href="https://react.dev/learn"
-            target="_blank"
-            rel="noreferrer"
+        {!accepted && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mt-6 space-y-3"
           >
-            Learn React
-          </a>
-          {" | "}
-          <a
-            className="text-[#61dafb] transition-all hover:text-blue-500"
-            href="https://vitejs.dev/guide/"
-            target="_blank"
-            rel="noreferrer"
+            <button
+              className="w-full bg-pink-500 text-white py-2 rounded-md"
+              onClick={() => setAccepted(true)}
+            >
+              Yes! 💖
+            </button>
+            <button className="w-full border border-pink-600 text-pink-600 py-2 rounded-md">
+              No 😢
+            </button>
+          </motion.div>
+        )}
+
+        {accepted && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, scale: 1.1 }}
+            className="mt-6 text-lg text-pink-600 font-semibold"
           >
-            Vite Docs
-          </a>
-          {" | "}
-          <a
-            className="text-[#61dafb] transition-all hover:text-blue-500"
-            href="https://tailwindcss.com/docs/installation"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Tailwindcss Docs
-          </a>
-          {" | "}
-          <a
-            className="text-[#61dafb] transition-all hover:text-blue-500"
-            href="https://www.framer.com/motion/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Framer Docs
-          </a>
-        </p>
-        <img src={viteLogo} className="mx-auto my-4" />
-      </header>
+            ❤️ Yay! I’m so happy! 💕
+          </motion.p>
+        )}
+      </div>
     </div>
-  );
+  )
 }
-
-export default App;
